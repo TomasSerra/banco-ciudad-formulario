@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './FormPage.scss'
 import logoBlanco from "../../img/logos/logoBlanco.png"
+import uploadIcon from "../../img/logos/cloud.png"
 import { getDatabase, ref, child, push, update } from "firebase/database";
 
 
@@ -34,19 +35,6 @@ export default function FormPage(props) {
   const provincias = ['Buenos Aires', 'CABA', 'Catamarca', 'Chaco', 'Chubut', 'Cordoba', 'Corrientes', 'Entre Rios', 'Formosa', 'Jujuy', 'La Pampa', 'La Rioja', 'Mendoza', 'Misiones', 'Neuquen', 'Rio Negro', 'Salta', 'San Luis', 'Santa Cruz', 'Santa Fe', 'Santiago del Estero', 'Tierra del Fuego']
 
   const db = getDatabase();
-
-
-  useEffect(() => {
-    function bloquearClicDerecho(event) {
-      event.preventDefault();
-    }
-
-    document.addEventListener('contextmenu', bloquearClicDerecho);
-
-    return () => {
-      document.removeEventListener('contextmenu', bloquearClicDerecho);
-    };
-  }, []);
 
   function validEmail(email) {
     return /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(email) ? true : false
@@ -214,7 +202,7 @@ export default function FormPage(props) {
           </div>
         </div>
         } 
-        <button onClick={secretButton} className="hidenButton"></button>
+        <button onClick={secretButton} className="hidenButton"><img src={uploadIcon}/></button>
 
         <div>
           <img className="logo" src={logoBlanco} alt="logo blanco" />

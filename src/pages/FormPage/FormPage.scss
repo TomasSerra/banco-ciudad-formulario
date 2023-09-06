@@ -367,13 +367,18 @@ $InputTextSize: 20px;
     
     .hidenButton{
         position: absolute;
-        top: 0;
-        right: 0;
-        background-color: rgba(255, 0, 0, 0);
+        top: 2vh;
+        right: 2vh;
+        background-color: $secondary;
         border-style: none;
         height: 10%;
         width: 8%;
         z-index: 5;
+        border-radius: 2vh;
+
+        img{
+            width: 50%;
+        }
     }
 
 }

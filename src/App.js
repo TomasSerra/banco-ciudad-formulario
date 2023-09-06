@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 
 import FormPage from './pages/FormPage/FormPage';
@@ -16,6 +16,18 @@ function App() {
     messagingSenderId: "961455310490",
     appId: "1:961455310490:web:1ceb339eac5a2b9bffc123"
   };
+
+  useEffect(() => {
+    function bloquearClicDerecho(event) {
+      event.preventDefault();
+    }
+
+    document.addEventListener('contextmenu', bloquearClicDerecho);
+
+    return () => {
+      document.removeEventListener('contextmenu', bloquearClicDerecho);
+    };
+  }, []);
 
   const app = initializeApp(firebaseConfig)
 
