@@ -1,0 +1,79 @@
+.center{
+    position: absolute;
+    z-index: 5;
+    border-radius: 50%;
+    background-color: #005cb2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: 0px 5px #004A87;
+    img{
+        width: 69%;
+        z-index: 5;
+    }
+    .line{
+        width: 0;
+        height: 0;
+        position: absolute;
+        z-index: 4;
+    }
+    .shadow-line{
+        width: 0;
+        height: 0;
+        position: absolute;
+        z-index: 2;
+        border-left-color: #004A87 !important;
+        top: 26%;
+    }
+}
+.container{
+    position: absolute;
+    z-index: 3;
+    border-radius: 50%;
+    border: #005cb2 solid;
+    box-shadow: 0px 6px #004A87;
+}
+.shadow{
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    border: rgba(0, 0, 0, 0.199) solid 20px;
+}
+.roulette{
+    position: absolute;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    .triangle {
+        z-index: 1;
+        width: 0; 
+        height: 0;
+        position: absolute;
+        right: 0; 
+    }
+    h1{
+        color: white;
+        z-index: 2;
+        position: absolute;
+        font-size: 33px;
+    }
+    .selected{
+        animation: selected linear 1s infinite;
+    }
+}
+
+@keyframes selected {
+    0%{
+        filter: brightness(100%);
+    }
+    50%{
+        filter: brightness(150%);
+    }
+    100%{
+        filter: brightness(100%);
+    }
+}

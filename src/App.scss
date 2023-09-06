@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+//Celeste -> rgb(69 143 180)
+//Azul -> rgb(0 92 178)
+//
+
+@font-face {
+    font-family: 'KievitOT';
+    src: url('./fonts/KievitOT-Regular.otf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+body{
+    overflow: hidden;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

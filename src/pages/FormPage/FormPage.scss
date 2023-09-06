@@ -1,0 +1,380 @@
+$primary: #213a8f;
+$primaryShadow: #182b68;
+$secondary: #009fe3;
+$secondaryShadow: #0080b6;
+
+$BorderRadius: 10px;
+$InputWidth: 90%;
+$InputHeight: 50px;
+$LogoSize: 20%;
+$LabelSize: 30px;
+$InputTextSize: 20px;
+
+
+@font-face {
+    font-family: 'KievitOT';
+    src: url('../../fonts/KievitOT-Regular.otf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+
+.form-page{
+
+    font-family: "KievitOT";
+    overflow: hidden;
+    background-color: $primary;
+    height: 100vh;
+
+    .logo{
+        width: $LogoSize;
+        margin-top: 2vh;
+        margin-left: 2vh;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    
+    .hide{
+        display: none;
+    }
+    
+    .table-container{
+        font-size: $LabelSize;
+        color: white;
+        display: inline-flex;
+        width: 80%;
+        margin-top: 14vh;
+    
+        .col{
+            width: 50%;
+        }
+    
+        .cont{
+            padding: 1vh;
+            text-align: left;
+            margin-left: 4%;
+        }
+    
+        label{
+            display: block;
+            margin-bottom: 15px;
+        }
+    
+        input{
+            font-size: $InputTextSize;
+            background-color: white;
+            border-style: none;
+            width: $InputWidth;
+            height: $InputHeight;
+            padding-left: 10px;
+            outline: none;
+            border-radius: $BorderRadius;
+        }
+    
+        input:focus{
+            box-shadow: 0 0 10px rgb(4, 201, 255);
+        }
+        
+    
+        select{
+            font-size: $InputTextSize;
+            background-color: white;
+            border-style: none;
+            width: calc($InputWidth + 3%);
+            height: $InputHeight;
+            padding-left: 10px;
+            outline: none;
+            color: black !important;
+            border-radius: $BorderRadius;
+    
+            option{
+                background-color: white;
+                color: black;
+            }
+        }
+    }
+    
+    
+    .newsletter{
+        align-items: center;
+        margin-top: 2vh;
+    
+        h2{
+            font-size: 30px;
+            color: white;
+        }
+    
+
+        .options-container{
+            color: white;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -3vh;
+
+            .option{
+                display: flex;
+                align-items: center;
+                margin-right: 4vh;
+            }
+            input{
+                appearance: none;
+                background-color: white;
+                border-style: none;
+                width: $LabelSize;
+                height: $LabelSize;
+                margin-left: 20px;
+                border-radius: calc($BorderRadius - 5px);
+            }
+        
+            input:checked{
+                appearance: none;
+                background-color: white !important;
+                background: url("../../img/logos/tick.svg") no-repeat 0 0;
+                background-size: 70%;
+                background-position: center;
+                border-style: none;
+            }
+        }
+    
+    }
+    .sendButton{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-content:flex-end;
+        margin-top: 3vh;
+        height: 80px;
+
+        .enviar{
+        font-size: 40px;
+        color: white;
+        background-color: $secondary;
+        border-style: none;
+        padding: 1% 5%;
+        font-weight: bold;
+        box-shadow: inset 0 -10px 0  $secondaryShadow;
+        height: 80px;
+        border-radius: $BorderRadius;
+        }
+    
+        .enviar:active{
+            box-shadow: inset 0 -10px 0 $secondary;
+            height: 70px;
+        }
+    }
+    
+    
+    
+    
+    #error{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: rgba(0, 0, 0, 0.684);
+        z-index: 10;
+    
+        .box{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: rgb(182, 115, 115);
+            color: white;
+            text-align: center;
+            width: fit-content;
+            height: fit-content;
+            padding: 40px;
+            border-radius: $BorderRadius;
+        }
+    
+        h3{
+            background-color: rgba(95, 158, 160, 0) !important;
+            font-size: $LabelSize;
+            margin-top: 0;
+            padding-top: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    
+        button{
+            font-size: $LabelSize;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 255, 255);
+            border-style: none;
+            padding: 1% 5%;
+            margin-top: 5%;
+            font-weight: bold;
+            border-radius: $BorderRadius;
+        }
+    }
+
+    #success{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: rgba(0, 0, 0, 0.684);
+        z-index: 10;
+    
+        .box{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: rgb(69, 211, 74);
+            color: white;
+            text-align: center;
+            width: fit-content;
+            height: fit-content;
+            padding: 40px;
+            border-radius: $BorderRadius;
+        }
+    
+        h3{
+            background-color: rgba(95, 158, 160, 0) !important;
+            font-size: $LabelSize;
+            margin-top: 0;
+            padding-top: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    
+        button{
+            font-size: $LabelSize;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 255, 255);
+            border-style: none;
+            padding: 1% 5%;
+            margin-top: 5%;
+            font-weight: bold;
+            border-radius: $BorderRadius;
+        }
+    }
+    
+    #subir{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: rgba(0, 0, 0, 0.684);
+        z-index: 10;
+    
+        center{
+            background-color: rgba(0, 0, 0, 0);
+        }
+    
+        .box{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: $secondary;
+            color: white;
+            text-align: center;
+            width: fit-content;
+            height: fit-content;
+            padding: 3% 10%;
+            border-radius: 15px;
+        }
+    
+        .close{
+            position: absolute;
+            border-radius: 30px;
+            width: fit-content;
+            height: 40px;
+            top: 20px;
+            right: 20px;
+            background-color: rgb(210, 150, 150);
+            border-style: none;
+            color: white;
+            font-size: 25px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    
+        .upload{
+            font-size: 28px;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 255, 255);
+            border-style: none;
+            padding: 2% 25%;
+            margin-top: 5%;
+            bottom: 0;
+            border-radius: $BorderRadius;
+        }
+    
+        .upload:active{
+            background-color: rgba(255, 255, 255, 0.646);
+        }
+    
+        label{
+            background-color: rgba(95, 158, 160, 0) !important;
+            display: block;
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: white;
+            margin-top: 20px;
+        }
+    
+        input{
+            background-color: white;
+            border-style: none;
+            width: 400px;
+            height: 40px;
+            font-size: 30px;
+            outline: none;
+            padding-left: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: $BorderRadius;
+        }
+    
+        input:focus{
+            box-shadow: 0 0 10px rgb(4, 201, 255);
+        }
+    
+        #textUpload{
+            background-color: rgba(162, 41, 41, 0) !important;
+        }
+    
+        #dataNum{
+            background-color: rgba(162, 41, 41, 0) !important;
+            margin-top: 10%;
+            margin-bottom: 0;
+            width: fit-content;
+            text-align: center;
+            padding: 1% 5%;
+            border-radius: 100px;
+        }
+    
+    }
+    
+    .hidenButton{
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: rgba(255, 0, 0, 0);
+        border-style: none;
+        height: 10%;
+        width: 8%;
+        z-index: 5;
+    }
+
+}
+
