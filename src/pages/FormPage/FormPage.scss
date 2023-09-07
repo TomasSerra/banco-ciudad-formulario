@@ -19,11 +19,11 @@ $InputTextSize: 20px;
   }
 
 .form-page{
-
     font-family: "KievitOT";
     overflow: hidden;
     background-color: $primary;
     height: 100vh;
+    user-select: none;
 
     .logo{
         width: $LogoSize;
