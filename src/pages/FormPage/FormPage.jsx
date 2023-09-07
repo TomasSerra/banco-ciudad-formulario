@@ -202,7 +202,7 @@ export default function FormPage(props) {
           </div>
         </div>
         } 
-        <button onClick={secretButton} className="hidenButton"><img src={uploadIcon}/></button>
+        <button onClick={closeOpenUpload} className="hidenButton"><img src={uploadIcon}/></button>
 
         <div>
           <img className="logo" src={logoBlanco} alt="logo blanco" />
@@ -210,15 +210,15 @@ export default function FormPage(props) {
         <div className='table-container'>
           <div className='col'>
             <div className="cont">
-              <label htmlFor='name'>Nombre y apellido *</label>
+              <label htmlFor='name'>Nombre y apellido</label>
               <input type="text" id="name" name="name" value={name} autoComplete="off" onChange={(e)=>{setName(e.target.value)}} />
             </div>
             <div className='cont'>
-              <label>DNI *</label>
+              <label>DNI</label>
               <input type="number" id="dni" value={dni} autoComplete="off" onChange={(e)=>{setDni(e.target.value)}} />
             </div>
             <div className="cont">
-              <label htmlFor='provincia'>Provincia *</label>
+              <label htmlFor='provincia'>Provincia</label>
               <select id="provincia" name="provincia" value={prov} onChange={(e)=>{setProv(e.target.value)}}>
                 <option value="" disabled selected>Selecciona una provincia</option>
                 {
@@ -232,15 +232,15 @@ export default function FormPage(props) {
           
           <div className='col'>
             <div className='cont'>
-              <label>Email *</label>
+              <label>Email</label>
               <input type="email" id="email" value={email} autoComplete="off" onChange={(e)=>{setEmail(e.target.value)}} />
             </div>
             <div className='cont'>
-              <label>Celular *</label>
+              <label>Celular</label>
               <input type="number" id="cel" value={cel} autoComplete="off" onChange={(e)=>{setCel(e.target.value)}} />
             </div>
             <div className='cont'>
-              <label>Localidad *</label>
+              <label>Localidad</label>
               <input type="text" name="localidad" id="localidad" value={localidad} autoComplete="off" onChange={(e)=>{setLocalidad(e.target.value)}}/>
             </div>
           </div>
