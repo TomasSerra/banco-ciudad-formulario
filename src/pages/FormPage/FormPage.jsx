@@ -57,6 +57,7 @@ export default function FormPage(props) {
         "Email" : email,
         "Provincia" : prov,
         "Localidad" : localidad,
+        "Ganador" : "No",
         "Informacion" : {
           "Caja de ahorro": newsCaja ? "Si" : "No",
           "Tarjeta de credito": newsTarjeta ? "Si" : "No",

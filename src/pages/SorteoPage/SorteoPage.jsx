@@ -11,6 +11,8 @@ export default function SorteoPage(props) {
     const [winner, setWinner] = useState(false);
     const [loading, setLoading] = useState(false);
     const [personas, setPersonas] = useState(0);
+    const [checkWinner, setCheckWinner] = useState(false);
+
 
     const db = getDatabase();
     
@@ -24,13 +26,20 @@ export default function SorteoPage(props) {
         onValue(personasRef, (snapshot) => {
             setWinner(false)
             const personas = snapshot.val();
-            const keys = Object.keys(personas);
-            const randomKey = keys[Math.floor(Math.random() * keys.length)];
-            const personaAleatoria = personas[randomKey];
-            setLoading(true)
-            setTimeout(()=>{
-                showData(personaAleatoria["Nombre"], personaAleatoria["DNI"], personaAleatoria["Email"])
-            }, 4000)
+            if(personas != null){
+                const keys = Object.keys(personas);
+                const randomKey = keys[Math.floor(Math.random() * keys.length)];
+                const personaAleatoria = personas[randomKey];
+                if(personaAleatoria["Ganador"] == "Si"){
+                    obtenerPersonaAleatoria()
+                }
+                else{
+                    setLoading(true)
+                    setTimeout(()=>{
+                        showData(personaAleatoria["Nombre"], personaAleatoria["DNI"], personaAleatoria["Email"])
+                    }, 4000)
+                }
+            }
         });
     }
 
@@ -48,7 +57,15 @@ export default function SorteoPage(props) {
         onValue(personasRef, (snapshot) => {
             const personas = snapshot.val();
             const keys = Object.keys(personas);
-            setPersonas(keys.length)
+            var total=0;
+            if(personas!=null){
+                for(var i=0; i<keys.length; i++){
+                    if(personas[keys[i]]["Ganador"] == "No"){
+                        total+=1;
+                    }
+                }
+                setPersonas(total);
+            }
           });
     }
 
@@ -56,14 +73,28 @@ export default function SorteoPage(props) {
         props.handleSection(0);
     }
 
+
   return (
     <div className="sorteo-page">
+        {checkWinner &&
+        <div className='set-winner-warning'>
+            <div className='box'>
+                <h2>¿Estas seguro que deseas marcar a este cliente como ganador presente?</h2>
+                <button onClick={()=>{setError(false)}}>Si</button>
+                <button onClick={()=>{setError(false)}}>Cancelar</button>
+            </div>
+        </div>
+        }
         <img className="logo" src={logoBlanco} />
         <button className='volver' onClick={volver}> Volver </button>
         <h2 className='title'>El ganador es:</h2>
         <div className="winner-container">
             {loading && <h3 className='loading'>Sorteando...</h3>}
             {winner && <h3 className='ganador'>NOMBRE: {name} <br/>DNI: {dni} <br/>EMAIL: {mail}</h3>}
+        </div>
+        <div className='check-winner'>
+            <h4>¿Está presente?</h4>
+            <input type="checkbox" value={checkWinner} checked={checkWinner} onChange={(e)=>{setCheckWinner(e.target.checked)}}/>
         </div>
         <div className="button-container">
             <button className='boton-sortear' onClick={obtenerPersonaAleatoria} disabled={loading}>Sortear <img className="random-icon" src={randomIcon}/></button>
