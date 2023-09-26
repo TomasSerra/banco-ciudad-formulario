@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './SorteoPage.scss'
 import logoBlanco from "../../img/logos/logoBlanco.png"
 import randomIcon from "../../img/logos/random.png"
-import { getDatabase, ref, child, push, update, onValue } from "firebase/database";
+import { getDatabase, ref, get, set, onValue, child } from "firebase/database";
 
 export default function SorteoPage(props) {
     const [name, setName] = useState("");
@@ -12,6 +12,7 @@ export default function SorteoPage(props) {
     const [loading, setLoading] = useState(false);
     const [personas, setPersonas] = useState(0);
     const [checkWinner, setCheckWinner] = useState(false);
+    const [winnerKey, setWinnerKey] = useState("");
 
 
     const db = getDatabase();
@@ -23,19 +24,20 @@ export default function SorteoPage(props) {
     function obtenerPersonaAleatoria() {
         const personasRef = ref(db, '/'); 
       
-        onValue(personasRef, (snapshot) => {
-            setWinner(false)
-            const personas = snapshot.val();
-            if(personas != null){
-                const keys = Object.keys(personas);
+        get(child(personasRef, "/")).then((snapshot) => {
+            if(personas != 0){
+                setWinner(false)
+                const personasData = snapshot.val();
+                const keys = Object.keys(personasData);
                 const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                const personaAleatoria = personas[randomKey];
+                const personaAleatoria = personasData[randomKey];
                 if(personaAleatoria["Ganador"] == "Si"){
                     obtenerPersonaAleatoria()
                 }
                 else{
                     setLoading(true)
                     setTimeout(()=>{
+                        setWinnerKey(randomKey)
                         showData(personaAleatoria["Nombre"], personaAleatoria["DNI"], personaAleatoria["Email"])
                     }, 4000)
                 }
@@ -73,6 +75,13 @@ export default function SorteoPage(props) {
         props.handleSection(0);
     }
 
+    function confirmWinner(){
+        set(ref(db, winnerKey + "/Ganador"), "Si").then(()=>{
+            setCheckWinner(false)
+            setWinner(false)
+        })
+    }
+
 
   return (
     <div className="sorteo-page">
@@ -80,8 +89,10 @@ export default function SorteoPage(props) {
         <div className='set-winner-warning'>
             <div className='box'>
                 <h2>¿Estas seguro que deseas marcar a este cliente como ganador presente?</h2>
-                <button onClick={()=>{setError(false)}}>Si</button>
-                <button onClick={()=>{setError(false)}}>Cancelar</button>
+                <div className='button-container'>
+                    <button onClick={()=>{confirmWinner()}}>Si</button>
+                    <button onClick={()=>{setCheckWinner(false)}}>Cancelar</button>
+                </div>
             </div>
         </div>
         }
@@ -92,10 +103,12 @@ export default function SorteoPage(props) {
             {loading && <h3 className='loading'>Sorteando...</h3>}
             {winner && <h3 className='ganador'>NOMBRE: {name} <br/>DNI: {dni} <br/>EMAIL: {mail}</h3>}
         </div>
+        {winner &&
         <div className='check-winner'>
             <h4>¿Está presente?</h4>
             <input type="checkbox" value={checkWinner} checked={checkWinner} onChange={(e)=>{setCheckWinner(e.target.checked)}}/>
         </div>
+        }
         <div className="button-container">
             <button className='boton-sortear' onClick={obtenerPersonaAleatoria} disabled={loading}>Sortear <img className="random-icon" src={randomIcon}/></button>
             <h4 className='personas'>Hay {personas} personas participando del sorteo</h4>
