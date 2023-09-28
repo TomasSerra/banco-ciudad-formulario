@@ -14,6 +14,8 @@ export default function SorteoPage(props) {
     const [checkWinner, setCheckWinner] = useState(false);
     const [winnerKey, setWinnerKey] = useState("");
     const [success, setSuccess] = useState(false);
+    const [checkedWinner, setCheckedWinner] = useState(false);
+
 
 
     const db = getDatabase();
@@ -28,6 +30,7 @@ export default function SorteoPage(props) {
         get(child(personasRef, "/")).then((snapshot) => {
             if(personas != 0){
                 setWinner(false)
+                setCheckedWinner(false)
                 const personasData = snapshot.val();
                 const keys = Object.keys(personasData);
                 const randomKey = keys[Math.floor(Math.random() * keys.length)];
@@ -79,8 +82,8 @@ export default function SorteoPage(props) {
     function confirmWinner(){
         set(ref(db, winnerKey + "/Ganador"), "Si").then(()=>{
             setCheckWinner(false)
-            setWinner(false)
             setSuccess(true)
+            setCheckedWinner(true)
             setTimeout(timeOutSuccess, 3000)
         })
     }
@@ -120,7 +123,7 @@ export default function SorteoPage(props) {
         {winner &&
         <div className='check-winner'>
             <h4>¿Premio entregado?</h4>
-            <input type="checkbox" value={checkWinner} checked={checkWinner} onChange={(e)=>{setCheckWinner(e.target.checked)}}/>
+            <input type="checkbox" value={checkWinner} checked={checkedWinner} disabled={checkedWinner} onChange={(e)=>{setCheckWinner(e.target.checked)}}/>
         </div>
         }
         <div className="button-container">
