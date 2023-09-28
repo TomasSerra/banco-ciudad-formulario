@@ -13,6 +13,7 @@ export default function SorteoPage(props) {
     const [personas, setPersonas] = useState(0);
     const [checkWinner, setCheckWinner] = useState(false);
     const [winnerKey, setWinnerKey] = useState("");
+    const [success, setSuccess] = useState(false);
 
 
     const db = getDatabase();
@@ -79,7 +80,13 @@ export default function SorteoPage(props) {
         set(ref(db, winnerKey + "/Ganador"), "Si").then(()=>{
             setCheckWinner(false)
             setWinner(false)
+            setSuccess(true)
+            setTimeout(timeOutSuccess, 3000)
         })
+    }
+
+    function timeOutSuccess(){
+        setSuccess(false)
     }
 
 
@@ -88,11 +95,18 @@ export default function SorteoPage(props) {
         {checkWinner &&
         <div className='set-winner-warning'>
             <div className='box'>
-                <h2>¿Estas seguro que deseas marcar a este cliente como ganador presente?</h2>
+                <h2>¿Estas seguro que deseas marcar a este cliente como que su premio fue entregado?</h2>
                 <div className='button-container'>
                     <button onClick={()=>{confirmWinner()}}>Si</button>
                     <button onClick={()=>{setCheckWinner(false)}}>Cancelar</button>
                 </div>
+            </div>
+        </div>
+        }
+        {success &&
+        <div className='set-success-warning'>
+            <div className='box'>
+                <h2>¡Cliente marcado como ganador correctamente!</h2>
             </div>
         </div>
         }
@@ -105,7 +119,7 @@ export default function SorteoPage(props) {
         </div>
         {winner &&
         <div className='check-winner'>
-            <h4>¿Está presente?</h4>
+            <h4>¿Premio entregado?</h4>
             <input type="checkbox" value={checkWinner} checked={checkWinner} onChange={(e)=>{setCheckWinner(e.target.checked)}}/>
         </div>
         }
