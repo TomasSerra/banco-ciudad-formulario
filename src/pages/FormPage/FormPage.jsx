@@ -95,10 +95,13 @@ export default function FormPage(props) {
     setProv("")
   }
 
-  function pushFb(postData){
-    const newPostKey = push(child(ref(db), 'posts')).key;
+  function pushFb(postData, currentDate){
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const newPostKey = push(child(ref(db, day+"-"+month+"-"+year), 'posts')).key;
     const updates = {};
-    updates[newPostKey] = postData;
+    updates[day+"-"+month+"-"+year +"/"+newPostKey] = postData;
     update(ref(db), updates).then(()=>{
       localStorage.clear();
       setUploadText("¡Datos subidos con exito!")
@@ -113,8 +116,9 @@ export default function FormPage(props) {
         if(localStorage.getItem("data") != null){ //Comprueba datos vacios
           if(navigator.onLine){
             const data = localStorage.getItem("data").split("$").slice(1);
+            var currentDate = new Date();
             data.forEach(obj=>{
-              pushFb(JSON.parse(obj));
+              pushFb(JSON.parse(obj), currentDate);
             })
             setUploadText("Subiendo datos...")
             setColor({color: "white"})

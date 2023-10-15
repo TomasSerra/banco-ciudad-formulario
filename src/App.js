@@ -18,6 +18,7 @@ function App() {
   };
 
   useEffect(() => {
+
     function bloquearClicDerecho(event) {
       event.preventDefault();
     }

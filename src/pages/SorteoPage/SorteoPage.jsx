@@ -25,28 +25,34 @@ export default function SorteoPage(props) {
     },[]);
 
     function obtenerPersonaAleatoria() {
-        const personasRef = ref(db, '/'); 
-      
-        get(child(personasRef, "/")).then((snapshot) => {
-            if(personas != 0){
-                setWinner(false)
-                setCheckedWinner(false)
-                const personasData = snapshot.val();
-                const keys = Object.keys(personasData);
-                const randomKey = keys[Math.floor(Math.random() * keys.length)];
-                const personaAleatoria = personasData[randomKey];
-                if(personaAleatoria["Ganador"] == "Si"){
-                    obtenerPersonaAleatoria()
+        if(navigator.onLine){
+            var currentDate = new Date();
+            const day = currentDate.getDate();
+            const month = currentDate.getMonth() + 1;
+            const year = currentDate.getFullYear();
+            const personasRef = ref(db, day+"-"+month+"-"+year); 
+        
+            get(child(personasRef, "/")).then((snapshot) => {
+                if(personas != 0){
+                    setWinner(false)
+                    setCheckedWinner(false)
+                    const personasData = snapshot.val();
+                    const keys = Object.keys(personasData);
+                    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+                    const personaAleatoria = personasData[randomKey];
+                    if(personaAleatoria["Ganador"] == "Si"){
+                        obtenerPersonaAleatoria()
+                    }
+                    else{
+                        setLoading(true)
+                        setTimeout(()=>{
+                            setWinnerKey(randomKey)
+                            showData(personaAleatoria["Nombre"], personaAleatoria["DNI"], personaAleatoria["Email"])
+                        }, 4000)
+                    }
                 }
-                else{
-                    setLoading(true)
-                    setTimeout(()=>{
-                        setWinnerKey(randomKey)
-                        showData(personaAleatoria["Nombre"], personaAleatoria["DNI"], personaAleatoria["Email"])
-                    }, 4000)
-                }
-            }
-        });
+            });
+        }
     }
 
     function showData(nombre, dni, email){
@@ -58,7 +64,12 @@ export default function SorteoPage(props) {
     }
 
     function genteParticipando(){
-        const personasRef = ref(db, '/'); 
+        if(navigator.onLine){
+        var currentDate = new Date();
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth() + 1;
+        const year = currentDate.getFullYear();
+        const personasRef = ref(db, day+"-"+month+"-"+year); 
       
         onValue(personasRef, (snapshot) => {
             const personas = snapshot.val();
@@ -73,6 +84,7 @@ export default function SorteoPage(props) {
                 setPersonas(total);
             }
           });
+        }
     }
 
     function volver(){
@@ -80,12 +92,18 @@ export default function SorteoPage(props) {
     }
 
     function confirmWinner(){
-        set(ref(db, winnerKey + "/Ganador"), "Si").then(()=>{
-            setCheckWinner(false)
-            setSuccess(true)
-            setCheckedWinner(true)
-            setTimeout(timeOutSuccess, 3000)
-        })
+        if(navigator.onLine){
+            var currentDate = new Date();
+            const day = currentDate.getDate();
+            const month = currentDate.getMonth() + 1;
+            const year = currentDate.getFullYear();
+            set(ref(db, day+"-"+month+"-"+year+"/"+winnerKey + "/Ganador"), "Si").then(()=>{
+                setCheckWinner(false)
+                setSuccess(true)
+                setCheckedWinner(true)
+                setTimeout(timeOutSuccess, 3000)
+            })
+        }
     }
 
     function timeOutSuccess(){
